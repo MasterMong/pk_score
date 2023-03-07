@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ระบบตรวจสอบคะแนน โรงเรียนภูเขียว</title>
+    <meta name="description" content="ตรวจสอบคะแนนสอบต่าง ๆ ของโรงเรียนภูเขียว">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+</head>
+
+<body>
+    <div class="container pt-2">
+        <!-- Start: New data -->
+        <div>
+            <h4>เพิ่มข้อมูล</h4>
+            <form action="submit.php" method="get">
+                <div class="input-group my-2"><span class="input-group-text">หัวข้อ</span><input class="form-control" type="text" name="title" required="" minlength="10" maxlength="300"></div>
+                <div class="input-group my-2"><span class="input-group-text">รายละเอียด</span><input class="form-control" type="text" name="title" required="" minlength="15" maxlength="100"></div><label class="form-label">รายการ</label><input class="form-control" type="file" name="lists">
+            </form>
+            <p>.ให้อัปโหลดรายการเป็นไฟล์ประเภท .csv เท่านั้น | ดาวน์โหลด<a href="example.csv" target="_blank">ไฟล์ตัวอย่าง</a></p><!-- Start: btn -->
+            <div class="text-end my-2"><button class="btn btn-primary" type="button"><i class="far fa-eye"></i>&nbsp;ดูตัวอย่าง</button></div><!-- End: btn -->
+        </div><!-- End: New data -->
+        <!-- Start: Example -->
+        <div>
+            <hr>
+            <h4>ตัวอย่าง</h4>
+            <p>พบข้อมูลจำนวน ... รายการ</p><!-- Start: Example -->
+            <div>
+                <div class="mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">ห้องเรียนพิเศษ ปีการศึกษา 2566</h5>
+                            <h6 class="text-muted card-subtitle mb-2">ตรวจสอบคะแนนการรับนักเรียนรอบห้องเรียนพิเศษ ปีการศึกษา 2566</h6>
+                            <form action="search.html" method="get"><input class="form-control" type="hidden" name="type" value="gifted"><input class="form-control" type="hidden" name="reft" value="2566">
+                                <div class="text-end"><button class="btn btn-success" type="submit"><i class="far fa-list-alt"></i>&nbsp;ตรวจสอบคะแนน</button></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="info.html" method="post">
+                                <h4>คะแนนสอบห้องเรียนพิเศษ ปีการศึกษา 2566</h4>
+                                <h6 class="text-muted mb-2">ตรวจสอบคะแนนการรับนักเรียนรอบห้องเรียนพิเศษ ปีการศึกษา 2566</h6>
+                                <div>
+                                    <p>ชื่อ - สกุล :&nbsp;<br>คะแนนที่ได้ :&nbsp;<br>อันดับ :&nbsp;</p>
+                                </div>
+                                <div class="text-end mt-2"><a class="btn btn-success" role="button" href="/"><i class="fas fa-home"></i>&nbsp;หน้าแรก</a></div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-end my-2"><button class="btn btn-success" type="submit"><i class="far fa-eye"></i>&nbsp;บันทึก</button></div>
+            </div><!-- End: Example -->
+        </div><!-- End: Example -->
+    </div>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
