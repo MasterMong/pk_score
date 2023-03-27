@@ -22,7 +22,7 @@ include("db.php");
             <h3 class="text-center mt-3">ระบบตรวจสอบคะแนน โรงเรียนภูเขียว</h3><!-- Start: Card Container -->
             <div style="width: 100%;max-width: 1200px;" class="px-4">
                 <?php
-                $sql = "SELECT * FROM `types`";
+                $sql = "SELECT * FROM `types` ORDER By id DESC";
                 $query = mysqli_query($mysql, $sql);
                 ?>
                 <?php
@@ -40,7 +40,13 @@ include("db.php");
                                 <form action="search.php" method="get">
                                     <input class="form-control" type="hidden" name="type" value="<?php echo $result->code ?>">
                                     <input class="form-control" type="hidden" name="year" value="<?php echo $result->year ?>">
-                                    <div class="text-end"><button class="btn btn-success" type="submit"><i class="far fa-list-alt"></i>&nbsp;ตรวจสอบคะแนน</button></div>
+                                    <div class="text-end">
+                                        <?php if($result->enabled == 1) { ?>
+                                            <button class="btn btn-success" type="submit"><i class="far fa-list-alt"></i>&nbsp;ตรวจสอบคะแนน</button>
+                                        <?php } else { ?>
+                                            <button class="btn btn-secondary" type="reset"><i class="far fa-list-alt"></i>&nbsp;เร็ว ๆ นี้</button>
+                                        <?php } ?>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -66,7 +72,7 @@ include("db.php");
                 </div>
 
                 <div class="col-lg-4" style="padding: -2px;">
-                    <h5 class="fw-semibold">ทีมพัฒนา</h5>
+                    <h5 class="fw-semibold">ทีมผู้พัฒนา</h5>
                     <ul>
                         <li>นางสาวเพชรรัตน์ แก้วสมบัติ ม.5/2<br>Backend/Frontend</li>
                         <li>นางสาวดวงกมล กองพันธ์ ม.5/5<br>Backend/Frontend</li>

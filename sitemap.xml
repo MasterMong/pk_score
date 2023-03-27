@@ -4,12 +4,9 @@
         <loc>/</loc>
     </url>
     <url>
-        <loc>/info.html</loc>
+        <loc>/info.php</loc>
     </url>
     <url>
-        <loc>/new.html</loc>
-    </url>
-    <url>
-        <loc>/search.html</loc>
+        <loc>/search.php</loc>
     </url>
 </urlset>

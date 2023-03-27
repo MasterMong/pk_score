@@ -4,6 +4,21 @@ if (empty($_GET["year"]) or empty($_GET["cid"]) or empty($_GET["type"])) {
     die();
 }
 include("db.php");
+$year = $_GET['year'];
+$cid = $_GET['cid'];
+$type_code = $_GET['type'];
+
+$sql_type = "SELECT * FROM types WHERE `year` = $year AND `code` = '$type_code'";
+$query = mysqli_query($mysql, $sql_type);
+$result_type = mysqli_fetch_object($query);
+if ($query->num_rows >= 1 AND $result_type->enabled == 1) {
+    $sql = "SELECT * FROM `students` WHERE year = '" . mysqli_real_escape_string($mysql, $year) . "' AND cid = '" . mysqli_real_escape_string($mysql, $cid) . "' AND type_code = '" . mysqli_real_escape_string($mysql, $type_code) . "' ";
+    $query = mysqli_query($mysql, $sql);
+    $result = mysqli_fetch_object($query);
+}
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="th">
@@ -19,23 +34,9 @@ include("db.php");
 </head>
 
 <body>
-
-    <?php
-    $year = $_GET['year'];
-    $cid = $_GET['cid'];
-    $type_code = $_GET['type'];
-
-    $sql = "SELECT * FROM `students` WHERE year = '" . mysqli_real_escape_string($mysql, $year) . "' AND cid = '" . mysqli_real_escape_string($mysql, $cid) . "' AND type_code = '" . mysqli_real_escape_string($mysql, $type_code) . "' ";
-    $query = mysqli_query($mysql, $sql);
-    $result = mysqli_fetch_object($query);
-    //   echo $result;
-    // var_dump($result);
-
-    ?>
-
     <!-- Start: row > 0 -->
     <?php
-    if ($query->num_rows > 0) { ?>
+    if ($query->num_rows >= 1 AND $result_type->enabled == 1) { ?>
         <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
             <div><img src="assets/img/logo.png" style="width: 120px;"></div>
             <div>
@@ -44,7 +45,7 @@ include("db.php");
                     <div class="card">
                         <div class="card-body">
                             <form action="info.html" method="post">
-                                <h4>คะแนนสอบห้องเรียนพิเศษ ปีการศึกษา 2566</h4>
+                                <h4>คะแนนสอบ<?php echo $result_type->title ?></h4>
                                 <div>
 
                                     <p><b>รายการที่สมัคร</b> : <?php echo $result->class ?></p>
@@ -55,16 +56,40 @@ include("db.php");
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <td scope="col">วิทยาศาสตร์</td>
-                                                <td scope="col">คณิตศาสตร์</td>
-                                                <td scope="col">ภาษาอังกฤษ</td>
+                                                <?php if ($result->score_sci !== null) {?>
+                                                    <td scope="col">วิทยาศาสตร์ ฯ</td>
+                                                <?php } ?>
+                                                <?php if ($result->score_math !== null) {?>
+                                                    <td scope="col">คณิตศาสตร์</td>
+                                                <?php } ?>
+                                                <?php if ($result->score_eng !== null) {?>
+                                                    <td scope="col">ภาษาอังกฤษ</td>
+                                                <?php } ?>
+                                                <?php if ($result->score_thai !== null) {?>
+                                                    <td scope="col">ภาษาไทย</td>
+                                                <?php } ?>
+                                                <?php if ($result->score_social !== null) {?>
+                                                    <td scope="col">สังคม ฯ</td>
+                                                <?php } ?>
                                                 <td scope="col">รวม</td>
                                             </tr>
                                         </thead>
                                         <tr>
-                                            <td><?php echo $result->score_sci ?></td>
-                                            <td><?php echo $result->score_math ?></td>
-                                            <td><?php echo $result->score_eng ?></td>
+                                            <?php if ($result->score_sci !== null) {?>
+                                                <td><?php echo $result->score_sci ?></td>
+                                            <?php } ?>
+                                            <?php if ($result->score_math !== null) {?>
+                                                <td><?php echo $result->score_math ?></td>
+                                            <?php } ?>
+                                            <?php if ($result->score_eng !== null) {?>
+                                                <td><?php echo $result->score_eng ?></td>
+                                            <?php } ?>
+                                            <?php if ($result->score_thai !== null) {?>
+                                                <td><?php echo $result->score_thai ?></td>
+                                            <?php } ?>
+                                            <?php if ($result->score_social !== null) {?>
+                                                <td><?php echo $result->score_social ?></td>
+                                            <?php } ?>
                                             <td><?php echo $result->score_sum ?></td>
                                         </tr>
                                     </table>
@@ -78,16 +103,15 @@ include("db.php");
                 </div><!-- End: Card Container -->
             </div>
         </div>
-    <?php } ?>
+    <?php } else ?>
     <!-- End: row > 0 -->
 
     <!-- Start: row = 0 -->
     <?php
-    if ($query->num_rows == 0) { ?>
-
+    { ?>
         <div class="d-flex flex-column justify-content-center align-items-center p-0 m-0" style="min-height: 100vh; background: var(--bs-gray-300);">
             <h3> ไม่พบข้อมูลของ <?php echo $cid ?></h3><a class="btn btn-primary" role="button" href="/"><i class="fas fa-chevron-left"></i>&nbsp;กลับหน้าแรก</a>
-        <?php } ?>
+    <?php } ?>
         </div><!-- End: row = 0 -->
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>

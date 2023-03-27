@@ -38,7 +38,7 @@
                         <hr>
                         <form action="info.php" method="get">
                             <label class="form-label">ระบุรหัสประชาชน หรือรหัสอ้างอิง</label>
-                            <input class="form-control mb-2" type="text" name="cid" placeholder="รหัสประชาชน หรือรหัสอ้างอิง" autofocus="" required="" minlength="1">
+                            <input class="form-control mb-2" type="text" name="cid" placeholder="รหัสประชาชน หรือรหัสอ้างอิง" autofocus="" required="" minlength="13" maxlength="13">
                             <input class="form-control" type="hidden" name="type" value="<?php echo $type ?>">
                             <input class="form-control" type="hidden" name="year" value="<?php echo $year ?>">
                             <div class="text-end"><button class="btn btn-success" type="submit"><i class="fas fa-search"></i>&nbsp;ค้นหา</button></div>
